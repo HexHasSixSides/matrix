@@ -10,7 +10,7 @@ def main():
     matrix = makeMatrix(numColumns, numRows)
     matrixValues(matrix, numRows)
     
-    scaleMatrix(matrix, 100)
+    rowSubtract(matrix[0], matrix[1])
     printMatrix(matrix)
     
     
@@ -165,6 +165,25 @@ def scaleMatrix(matrix, scalar):
     return matrix
     
 
+def rowLength(row):
+    rowLength = len(row)
+
+    return rowLength
+
+
+
+
+def rowSubtract(row1, row2):
+    rowLen = rowLength(row1)
+    counter = 0
+
+    while counter != rowLen:
+        row2[counter] = row2[counter] - row1[counter]
+        counter += 1
+
+    print(row2)
+
+
 
 def insertionSort(numList): 
     for index in range(1, len(numList)):
@@ -187,8 +206,15 @@ def largestItem(lenList):
     
     spaces = lenList[-1]
     return spaces
-        
-        
+
+
+
+
+
+
+
+
+
 def numLen(num):
     return len(str(abs(num)))
   
@@ -211,6 +237,8 @@ def printMatrix(matrix):
     
     for row in matrix:
         print ('[%s]' % (' '.join('%09s' % i for i in row)))
+
+
         
 
 
