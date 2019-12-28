@@ -185,6 +185,8 @@ def rowSubtract(row1, row2):
 
 
 
+
+
 def insertionSort(numList): 
     for index in range(1, len(numList)):
         
@@ -209,12 +211,6 @@ def largestItem(lenList):
 
 
 
-
-
-
-
-
-
 def numLen(num):
     return len(str(abs(num)))
   
@@ -234,10 +230,16 @@ def numLen(num):
 # N/A
 #--------------------------------------------------------------- 
 def printMatrix(matrix):
-    
+    print(" ")
+    print("--------------------------------------------")
+    print("#####################")
+    print("##  | THE MATRIX | ##")
+    print("#####################")
+
     for row in matrix:
         print ('[%s]' % (' '.join('%09s' % i for i in row)))
-
+    
+    print("--------------------------------------------")
 
         
 
