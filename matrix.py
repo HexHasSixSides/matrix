@@ -2,6 +2,7 @@
 # created by Mario Reyes
 # December 18 2019
 
+from decimal import Decimal
 
 def main():
     numColumns = int(input("Number of columns in the matrix: "))
@@ -13,6 +14,12 @@ def main():
     
     largest = largestItem(matrix[0])
     print("Largest = " + str(largest))
+    printMatrix(matrix)
+
+    rowSubtract(matrix[0], matrix[1])
+    printMatrix(matrix)
+
+    rowSubtract(matrix[0], matrix[1])
     printMatrix(matrix)
     
     
@@ -268,7 +275,8 @@ def rowSubtract(row1, row2):
     counter = 0
 
     while counter != rowLen:
-        row2[counter] = row2[counter] - row1[counter]
+        newRowEntry = Decimal(str(row2[counter])) - Decimal(str(row1[counter]))
+        row2[counter] = (newRowEntry)
         counter += 1
 
     
