@@ -9,8 +9,10 @@ def main():
     
     matrix = makeMatrix(numColumns, numRows)
     matrixValues(matrix, numRows)
+
     
-    rowSubtract(matrix[0], matrix[1])
+    largest = largestItem(matrix[0])
+    print("Largest = " + str(largest))
     printMatrix(matrix)
     
     
@@ -163,8 +165,53 @@ def scaleMatrix(matrix, scalar):
         index += 1
             
     return matrix
-    
 
+
+
+#--------------------------------------------------------------
+# matrixDimensions
+#
+# function that takes in a matrix, gets its row length and 
+# column length to retrieve its dimensions, and returns a list
+# with elements row length and column length (row x column)
+# --------------------------------------------------------------
+# inputs:
+#
+# matrix       -    matrix whose dimensions will be calculated
+#---------------------------------------------------------------
+# return values:
+#
+# dimensions  -    list that  contains the dimensions of matrix
+#---------------------------------------------------------------
+# notes:
+#
+# - utilizes both rowLength and columnLength functions to compute
+#   matrix dimensions
+#---------------------------------------------------------------
+def matrixDimensions(matrix):
+    rowLen = rowLength(matrix[0])
+    columnLen = columnLength(matrix)
+
+    dimensions = [rowLen, columnLen]
+    
+    return dimensions
+
+
+
+#--------------------------------------------------------------
+# rowLength
+#
+# function that takes in a row and returns the number of 
+# elements found inside 
+# --------------------------------------------------------------
+# inputs:
+#
+# row        -    a row of a matrix 
+#---------------------------------------------------------------
+# return values:
+#
+# rowLength  -    integer number of elements in a row 
+#---------------------------------------------------------------
 def rowLength(row):
     rowLength = len(row)
 
@@ -172,7 +219,50 @@ def rowLength(row):
 
 
 
+#--------------------------------------------------------------
+# columnLength
+#
+# function that takes in a matrix and returns the number of 
+# elements in every column of the matrix 
+# --------------------------------------------------------------
+# inputs:
+#
+# matrix      -   the matrix whose column length will be counted
+#---------------------------------------------------------------
+# return values:
+#
+# columnLength  -  integer number of number of elements in
+#                  column of matrix 
+#---------------------------------------------------------------
+def columnLength(matrix):
+    columnLength = len(matrix[0])
 
+    return columnLength
+
+
+
+#--------------------------------------------------------------
+# rowSubtract
+#
+# function that takes two different rows of a matrix and 
+# performs subtraction of the first provided row with the second
+# provided row and saves the new values in the second provided
+# row
+# --------------------------------------------------------------
+# inputs:
+#
+# row1        -    row that will be subtracted from row2
+# row2        -    row that will get changed by row1
+#---------------------------------------------------------------
+# return values:
+#
+# N/A
+#---------------------------------------------------------------
+# notes:
+#
+# - utilizes the rowLength function to calculate the length of 
+#   the rows of the matrix for the while loop
+#---------------------------------------------------------------
 def rowSubtract(row1, row2):
     rowLen = rowLength(row1)
     counter = 0
@@ -181,36 +271,85 @@ def rowSubtract(row1, row2):
         row2[counter] = row2[counter] - row1[counter]
         counter += 1
 
-    print(row2)
+    
 
 
-
-
-
-def insertionSort(numList): 
-    for index in range(1, len(numList)):
+#--------------------------------------------------------------
+# insertionSort
+# 
+# function that performs the well-known insertion sort algrthm
+# on a row of a matrix
+# --------------------------------------------------------------
+# inputs:
+#
+# row         -    row of matrix that will be sorted in
+#                 ascending order
+#---------------------------------------------------------------
+# return values:
+#
+# N/A
+#---------------------------------------------------------------
+def insertionSort(row): 
+    for index in range(1, len(row)):
         
-        keyValue = numList[index]
-        previousValue = numList[index-1]
+        keyValue = row[index]
+        previousValue = row[index-1]
         
         while index >= 1 and previousValue > keyValue:
-            numList[index] = numList[index-1]
+            row[index] = row[index-1]
             index -= 1
-            previousValue = numList[index-1]
+            previousValue = row[index-1]
         
-        numList[index] = keyValue
+        row[index] = keyValue
   
 
 
-def largestItem(lenList):
-    
-    insertionSort(lenList)
-    
-    spaces = lenList[-1]
-    return spaces
+#--------------------------------------------------------------
+# largestItem
+# 
+# function that takes in a row and finds the largest value
+# present in that row
+# --------------------------------------------------------------
+# inputs:
+#
+# row         -    row of matrix whose largest element will be
+#                  found in
+#---------------------------------------------------------------
+# return values:
+#
+# largestItem  -   integer of the largest number in the row
+#---------------------------------------------------------------
+# notes:
+#
+# - utilizes the insertionSort function to sort a copy of the 
+#   row and grab its last element once it is sorted to grab
+#   the largest number
+#---------------------------------------------------------------
+def largestItem(row):
+    # added the '[:]' to copy the list and not change
+    # the actual row in the matrix
+    p_row = row[:] 
+    insertionSort(p_row)
+    largestItem = p_row[-1]
+
+    return largestItem
 
 
 
+#--------------------------------------------------------------
+# numLen
+# 
+# function that takes in a number and returns the number of 
+# spaces it takes up 
+# --------------------------------------------------------------
+# inputs:
+#
+# number       -   number whose spaces will be counted
+#---------------------------------------------------------------
+# return values:
+#
+# N/A  -   integer of the number of spaces the number takes up
+#---------------------------------------------------------------
 def numLen(num):
     return len(str(abs(num)))
   
@@ -230,10 +369,15 @@ def numLen(num):
 # N/A
 #--------------------------------------------------------------- 
 def printMatrix(matrix):
+
+    dimensions = matrixDimensions(matrix)
+    row = str(dimensions[0])
+    column = str(dimensions[1])
+
     print(" ")
     print("--------------------------------------------")
     print("#####################")
-    print("##  | THE MATRIX | ##")
+    print("#  |"+row+" x "+column+"  MATRIX|  #")
     print("#####################")
 
     for row in matrix:
@@ -248,9 +392,4 @@ def printMatrix(matrix):
 
         
         
-            
-        
-        
-
-    
 main()
