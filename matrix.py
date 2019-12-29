@@ -11,15 +11,9 @@ def main():
     matrix = makeMatrix(numColumns, numRows)
     matrixValues(matrix, numRows)
 
-    
-    largest = largestItem(matrix[0])
-    print("Largest = " + str(largest))
     printMatrix(matrix)
 
-    rowSubtract(matrix[0], matrix[1])
-    printMatrix(matrix)
-
-    rowSubtract(matrix[0], matrix[1])
+    reduceColumn(matrix,0)
     printMatrix(matrix)
     
     
@@ -134,7 +128,7 @@ def scaleRow(row, scalar):
     
     index = 0
     for number in  row:
-        row[index] = number * scalar
+        row[index] = (number) * (scalar)
         
         index+=1
         
@@ -276,7 +270,7 @@ def rowSubtract(row1, row2):
 
     while counter != rowLen:
         newRowEntry = Decimal(str(row2[counter])) - Decimal(str(row1[counter]))
-        row2[counter] = (newRowEntry)
+        row2[counter] = newRowEntry
         counter += 1
 
     
@@ -362,6 +356,54 @@ def numLen(num):
     return len(str(abs(num)))
   
 
+
+def reduceColumn(matrix, column):
+    numRows = rowLength(matrix[0])
+    numColumns = columnLength(matrix)
+
+    pivotRow = matrix[column]
+    pivotPosition = pivotRow[column]
+
+    # makes a list of the elements in the column of the matrix
+    columnList = []
+    for row in matrix:
+        columnList.append(row[column])
+
+
+    # makes a list of scalars needed to get zero under the pivot
+    # position once subtracted 
+    scalarNumbers = []
+    for number in columnList[1:]:
+
+        scalar = number/pivotPosition
+        scalarNumbers.append(scalar)
+
+    counter = 1
+    for scalar in scalarNumbers:
+
+        undoScalar = 1/(scalar)
+        newRow = scaleRow(pivotRow, scalar)
+        matrix[column] = newRow
+
+        rowSubtract(matrix[column], matrix[column+counter])
+
+        rowBefore = scaleRow(pivotRow, undoScalar)
+        matrix[column] = rowBefore
+
+        counter += 1
+
+
+
+    print(columnList)
+    print(scalarNumbers) 
+
+        
+
+def ref(matrix):
+    numRows = rowLength(matrix[0])
+    numColumns = columnLength(matrix)
+
+    
 #--------------------------------------------------------------
 # printMatrix
 #
